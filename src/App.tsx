@@ -2,8 +2,8 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { PageSkeleton } from "./components/ApiStates";
+import Landing from "./pages/Landing";
 
-const Landing = lazy(() => import("./pages/Landing"));
 const Events = lazy(() => import("./pages/Events"));
 
 export default function App() {
