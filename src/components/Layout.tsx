@@ -13,7 +13,7 @@ export function Layout({ children }: Props) {
       </a>
       <header className={styles.header}>
         <Link to="/" className={styles.logo}>
-          Render<span className={styles.logoAccent}>72</span>
+          Marque<span className={styles.logoAccent}>e</span>
         </Link>
         <nav className={styles.nav} aria-label="Main">
           <Link
@@ -34,8 +34,7 @@ export function Layout({ children }: Props) {
       </header>
       <main id="main">{children}</main>
       <footer className={styles.footer}>
-        <p className={styles.footerTag}>Render72 · Campus events, loud and clear.</p>
-        <p className={styles.footerSmall}>Built for the hackathon — find your fest, register fast.</p>
+        <p className={styles.footerTag}>© 2026 Marquee. Campus events, curated.</p>
       </footer>
     </>
   );

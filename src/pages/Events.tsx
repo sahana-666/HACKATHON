@@ -73,8 +73,8 @@ export default function Events() {
   return (
     <>
       <PageMeta
-        title="All Events | Render72"
-        description="Browse, filter, and sort every campus event and workshop. Search by tags, snag free seats, and register before deadlines."
+        title="All events | Marquee"
+        description="Browse, filter, and sort every campus event and workshop. Search by category, find free seats, and register before deadlines."
       />
       <div className={styles.page}>
         {/* ── Page header ───────────────────────────────── */}

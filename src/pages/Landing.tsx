@@ -45,8 +45,8 @@ export default function Landing() {
   return (
     <>
       <PageMeta
-        title="Render72 — Campus Events"
-        description="Your college events hub: discover featured fests, workshops, and registrations in one loud, friendly place."
+        title="Marquee | Campus events, curated"
+        description="Marquee rounds up every event on campus. Browse featured fests, workshops, and talks — then register before the last seat goes."
       />
       <div className={styles.heroWrap}>
         <section className={styles.hero} aria-labelledby="hero-heading">
@@ -55,7 +55,7 @@ export default function Landing() {
               Campus life, <span className={styles.highlight}>curated</span>
             </h1>
             <p className={`${styles.sub} reveal reveal-delay-1`}>
-              Render72 rounds up every event on campus — browse the lineup and jump straight to what
+              Marquee rounds up every event on campus. Browse the lineup and jump straight to what
               matters.
             </p>
             <Link to="/events" className={`${styles.cta} reveal reveal-delay-2`}>
@@ -138,7 +138,7 @@ export default function Landing() {
 
       <section className={styles.highlights} aria-labelledby="highlights-heading">
         <h2 id="highlights-heading" className={`${styles.sectionTitle} reveal`}>
-          Why Render72?
+          Why Marquee?
         </h2>
         <ul className={`${styles.highlightGrid} reveal-stagger`}>
           {HIGHLIGHTS.map((h) => (
