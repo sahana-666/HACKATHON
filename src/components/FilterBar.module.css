@@ -1,68 +1,280 @@
-.bar {
-  border: var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--cream);
-  box-shadow: var(--shadow-soft);
-  padding: 1.35rem;
+/* ─── Panel ──────────────────────────────────────────────────────────────── */
+.panel {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0;
+  background: var(--cream);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 1.25rem 1.1rem 1rem;
+  min-width: 0;
 }
 
-.label {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 0.35rem;
+/* ─── Search ─────────────────────────────────────────────────────────────── */
+.searchWrap {
+  margin-bottom: 0.5rem;
 }
 
-.input,
-.select {
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.searchInner {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.7rem;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.searchInput {
   width: 100%;
   font-family: var(--font-body);
-  font-size: 1rem;
-  padding: 0.55rem 0.65rem;
+  font-size: 0.95rem;
+  padding: 0.6rem 2.2rem 0.6rem 2.2rem;
   border: var(--border);
   border-radius: var(--radius-md);
   background: var(--cream);
   color: var(--ink);
-  min-width: 0;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
-.filtersGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.85rem;
+.searchInput::placeholder {
+  opacity: 0.55;
 }
 
-@media (min-width: 768px) {
-  .filtersGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Hide browser-native X on search inputs */
+.searchInput::-webkit-search-cancel-button {
+  display: none;
 }
 
-@media (min-width: 1280px) {
-  .filtersGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.searchClear {
+  position: absolute;
+  right: 0.55rem;
+  padding: 0.2rem 0.45rem;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink);
+  opacity: 0.55;
+  border-radius: var(--radius-sm);
 }
 
-.toggles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+.searchClear:hover {
+  opacity: 1;
+  background: var(--peach);
 }
 
-.checkLabel {
+/* Reserve 1-line space to prevent layout shift */
+.searchHint {
+  margin: 0.3rem 0 0;
+  min-height: 1.4em;
+  font-size: 0.8rem;
+  color: var(--rust);
+  opacity: 0.9;
+}
+
+/* ─── Sort row ───────────────────────────────────────────────────────────── */
+.sortRow {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  padding: 0.65rem 0;
+  border-bottom: var(--border);
+  margin-bottom: 0.15rem;
+}
+
+.label {
+  font-size: 0.78rem;
   font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.select {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  padding: 0.38rem 0.55rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  color: var(--ink);
+  flex: 1;
+  min-width: 0;
   cursor: pointer;
 }
 
-.checkLabel input {
-  width: 1.05rem;
-  height: 1.05rem;
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.toggleInput {
+  width: 1rem;
+  height: 1rem;
   accent-color: var(--teal);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ─── Sections ───────────────────────────────────────────────────────────── */
+.section {
+  padding: 0.75rem 0 0.25rem;
+  border-bottom: var(--border);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.sectionHead {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  opacity: 0.65;
+}
+
+/* ─── Chips ──────────────────────────────────────────────────────────────── */
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chipColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.chip {
+  font-family: var(--font-body);
+  font-size: 0.83rem;
+  font-weight: 500;
+  padding: 0.32rem 0.7rem;
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: none;
+}
+
+.chipActive {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+
+.chipMuted {
+  opacity: 0.45;
+}
+
+.chipCount {
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .chip {
+    transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chip:not(.chipActive):not(.chipMuted):hover {
+    background: var(--peach);
+  }
+
+  .chipActive:hover {
+    opacity: 0.85;
+  }
+}
+
+/* ─── Segmented control (price) ──────────────────────────────────────────── */
+.fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.segmented {
+  display: flex;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.segment {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.4rem 0.3rem;
+  border: none;
+  border-right: var(--border);
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.segment:last-child {
+  border-right: none;
+}
+
+.segmentActive {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .segment {
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .segment:not(.segmentActive):hover {
+    background: var(--peach);
+  }
+}
+
+/* ─── Result count ───────────────────────────────────────────────────────── */
+.resultCount {
+  margin: 0.9rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  min-height: 1.4em;
 }

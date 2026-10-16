@@ -50,6 +50,12 @@ export function EventCard({ event, priority = false, compact = false }: Props) {
           {event.is_featured && (
             <span className={`${styles.sticker} ${styles.pillTeal}`}>Featured</span>
           )}
+          {event.event_status === "COMPLETED" && (
+            <span className={`${styles.sticker} ${styles.pillPast}`}>Past</span>
+          )}
+          {event.event_status === "CLOSED" && (
+            <span className={`${styles.sticker} ${styles.pillPast}`}>Closed</span>
+          )}
           {reg === "SOLD_OUT" && (
             <span className={`${styles.sticker} ${styles.pillRust}`}>Sold out</span>
           )}

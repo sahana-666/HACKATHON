@@ -1,5 +1,5 @@
 .page {
-  max-width: 72rem;
+  max-width: 82rem;
   margin: 0 auto;
   padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1rem, 4vw, 2rem) 3rem;
   background: var(--cream);
@@ -23,11 +23,147 @@
   line-height: 1.55;
 }
 
-.count {
-  margin: 0.5rem 0 1rem;
-  font-size: 1rem;
+/* ─── Layout (sidebar + results) ─────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
 }
 
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: 17rem 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .layout {
+    grid-template-columns: 19rem 1fr;
+  }
+}
+
+/* ─── Sidebar ─────────────────────────────────────────────────────────────── */
+.sidebar {
+  /* Hide on mobile — sheet used instead */
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    display: block;
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100svh - 2rem);
+    overflow-y: auto;
+    /* Scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--peach) transparent;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    background: var(--peach);
+    border-radius: 4px;
+  }
+}
+
+/* ─── Results column ──────────────────────────────────────────────────────── */
+.results {
+  min-width: 0;
+}
+
+/* ─── Mobile-only controls ───────────────────────────────────────────────── */
+.mobileControls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .mobileControls {
+    display: none;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.mobileSearch {
+  width: 100%;
+}
+
+.mobileSearchInput {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.6rem 0.85rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  color: var(--ink);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.mobileRow {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.mobileSelect {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  padding: 0.5rem 0.65rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.filterToggle {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background: var(--ink);
+  color: var(--cream);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .filterToggle {
+    transition: opacity 0.15s ease;
+  }
+
+  .filterToggle:active {
+    opacity: 0.8;
+  }
+}
+
+/* ─── Grid ────────────────────────────────────────────────────────────────── */
 .gridSection {
   margin-top: 1rem;
 }
@@ -40,6 +176,64 @@
 
 @media (min-width: 1280px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
+}
+
+/* ─── Empty state (when filters return nothing) ───────────────────────────── */
+.emptyFilters {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--cream);
+  margin-top: 1rem;
+}
+
+.emptyTitle {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.emptyBody {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.emptyAction {
+  font-family: var(--font-body);
+  font-size: inherit;
+  font-weight: 600;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--teal);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.emptySecondary {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.55rem 1.1rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .emptySecondary {
+    transition: background 0.15s ease;
+  }
+}
+
+.emptySecondary:hover {
+  background: var(--peach);
 }

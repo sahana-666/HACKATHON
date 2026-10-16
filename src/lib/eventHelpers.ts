@@ -1,4 +1,5 @@
 import type { EventSummary } from "../api";
+import { categoryToGroup } from "./categoryGroups";
 
 export function seatsLeft(e: EventSummary): number {
   const total = e.total_seats ?? 0;
@@ -60,7 +61,31 @@ export function sortKeySoonest(e: EventSummary): number {
 
 export function searchHaystack(e: EventSummary): string {
   const tags = Array.isArray(e.tags) ? e.tags.join(" ") : "";
-  return [e.name, e.blurb, tags].filter(Boolean).join(" ").toLowerCase();
+  const group = categoryToGroup(e.category);
+  return [e.name, e.blurb, tags, e.category, group].filter(Boolean).join(" ").toLowerCase();
+}
+
+/**
+ * Returns a short label for a date chip, e.g. "Fri 14 Nov".
+ * Input is an ISO date string like "2026-11-14".
+ */
+export function formatStartDate(iso: string): string {
+  try {
+    const d = new Date(iso + "T12:00:00");
+    return d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" });
+  } catch {
+    return iso;
+  }
+}
+
+/** Collect all distinct start_dates from the event list, sorted ascending. */
+export function distinctStartDates(events: EventSummary[]): string[] {
+  const set = new Set<string>();
+  for (const e of events) {
+    const d = e.schedule_summary?.start_date;
+    if (d) set.add(d);
+  }
+  return [...set].sort();
 }
 
 export function safeBlurb(blurb: string | null | undefined, max = 120): string {
