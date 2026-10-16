@@ -21,10 +21,6 @@ export function resizeCoverUrl(url: string | null | undefined): string {
   }
 }
 
-export function coverFallback(): string {
-  return PLACEHOLDER;
-}
-
 export function onCoverError(e: { currentTarget: HTMLImageElement }) {
   const img = e.currentTarget;
   if (img.dataset.fallbackApplied) return;
