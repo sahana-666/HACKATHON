@@ -1,0 +1,25 @@
+.section {
+  margin: 0;
+}
+
+.heading {
+  font-weight: 800;
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  margin-bottom: 1rem;
+}
+
+.scroll {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1.25rem;
+}
+
+.item {
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .scroll {
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  }
+}

@@ -1,0 +1,22 @@
+.sunburst {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sunburst {
+    animation: floaty 7s ease-in-out infinite;
+  }
+
+  @keyframes floaty {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+}

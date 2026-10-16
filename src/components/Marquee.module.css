@@ -1,0 +1,30 @@
+.wrap {
+  overflow: hidden;
+  border-top: var(--border);
+  background: var(--teal);
+  color: var(--cream);
+  padding: 0.7rem 0;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding-left: 1rem;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dot {
+  opacity: 0.75;
+}

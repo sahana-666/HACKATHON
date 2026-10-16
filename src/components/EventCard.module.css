@@ -1,0 +1,235 @@
+.card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  display: flex;
+  flex-direction: column;
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--cream);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  min-width: 0;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  @media (prefers-reduced-motion: no-preference) {
+    .card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y))
+        translateY(-4px);
+      box-shadow: var(--shadow-lift);
+    }
+  }
+}
+
+.accent-teal .categoryPill {
+  background: var(--teal);
+  color: var(--cream);
+}
+
+.accent-rust .categoryPill {
+  background: var(--rust);
+  color: var(--cream);
+}
+
+.accent-mustard .categoryPill {
+  background: var(--mustard);
+  color: var(--ink);
+}
+
+.accent-teal .imageWrap::after,
+.accent-rust .imageWrap::after,
+.accent-mustard .imageWrap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: var(--teal);
+}
+
+.accent-rust .imageWrap::after {
+  background: var(--rust);
+}
+
+.accent-mustard .imageWrap::after {
+  background: var(--mustard);
+}
+
+.imageWrap {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  background: var(--peach);
+  border-bottom: var(--border);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.stickers {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.65rem;
+  right: 0.65rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  pointer-events: none;
+}
+
+.sticker {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border: var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.pillTeal {
+  background: var(--teal);
+  color: var(--cream);
+}
+
+.pillRust {
+  background: var(--rust);
+  color: var(--cream);
+}
+
+.pillMustard {
+  background: var(--mustard);
+  color: var(--ink);
+}
+
+.body {
+  padding: 1.1rem 1.15rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.category {
+  margin: 0;
+  align-self: flex-start;
+}
+
+.categoryPill {
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  border: var(--border);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2.5vw, 1.22rem);
+}
+
+.blurb {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  opacity: 0.88;
+}
+
+.dates {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.modeBadge {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.18rem 0.5rem;
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--peach);
+  color: var(--ink);
+}
+
+.price {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.seats {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.seatsUrgent {
+  font-weight: 500;
+  color: var(--rust);
+}
+
+.regRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.45rem;
+}
+
+.regBadge {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.45rem;
+  border: var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.reg_OPEN {
+  background: var(--teal);
+  color: var(--cream);
+}
+
+.reg_CLOSED {
+  background: var(--mustard);
+  color: var(--ink);
+}
+
+.reg_SOLD_OUT {
+  background: var(--rust);
+  color: var(--cream);
+}
+
+.deadline {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.compact .blurb {
+  display: none;
+}
+
+.compact .title {
+  font-size: 1rem;
+}

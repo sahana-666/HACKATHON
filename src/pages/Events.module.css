@@ -1,0 +1,45 @@
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1rem, 4vw, 2rem) 3rem;
+  background: var(--cream);
+  min-width: 0;
+}
+
+.pageHeader {
+  margin-bottom: 2rem;
+}
+
+.h1 {
+  font-weight: 800;
+  font-size: clamp(2rem, 5.5vw, 3.1rem);
+  margin-bottom: 0.65rem;
+}
+
+.lead {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.count {
+  margin: 0.5rem 0 1rem;
+  font-size: 1rem;
+}
+
+.gridSection {
+  margin-top: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: 1.35rem;
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

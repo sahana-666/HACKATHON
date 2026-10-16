@@ -1,0 +1,48 @@
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 500;
+  padding: 0.55rem 1.15rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background: var(--rust);
+  color: var(--cream);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  @media (prefers-reduced-motion: no-preference) {
+    .btn:not(:disabled) {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lift);
+    }
+
+    .btn:not(:disabled):active {
+      transform: translateY(1px);
+    }
+  }
+}
+
+.status {
+  margin: 0;
+  font-weight: 500;
+}
