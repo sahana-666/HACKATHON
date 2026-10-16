@@ -1,51 +1,295 @@
+/* ── Announcement strip ──────────────────────────────────────────────────── */
+.strip {
+  position: sticky;
+  top: 0;
+  z-index: 101; /* sits just above page content but below header */
+  background: var(--teal);
+  color: var(--cream);
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 0.42rem 1rem;
+  line-height: 1.4;
+}
+
+.stripLink {
+  color: var(--mustard);
+  font-weight: 600;
+  text-underline-offset: 2px;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
 .header {
+  position: sticky;
+  top: 0; /* overridden by JS when strip is present — strip pushes it down */
+  z-index: 100;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem clamp(1rem, 4vw, 2rem);
-  border-bottom: var(--border);
+  padding: 0.75rem clamp(1rem, 4vw, 2rem);
   background: var(--cream);
+  border-bottom: var(--border);
+  transition: box-shadow 0.25s ease;
 }
 
+/* The strip is also sticky top:0; the header sticks just below it.
+   We can't know the strip height in CSS, so we use a JS class
+   added when the sentinel exits the viewport. */
+.strip + .header,
+.strip ~ .header {
+  /* When strip is present, header is the second sticky child; browser
+     stacks them correctly without extra top offset needed. */
+  position: sticky;
+  top: 0;
+}
+
+.headerScrolled {
+  box-shadow:
+    0 1px 0 rgba(43, 33, 24, 0.06),
+    0 4px 16px rgba(43, 33, 24, 0.1),
+    0 10px 32px rgba(43, 33, 24, 0.07);
+}
+
+/* ── Wordmark ─────────────────────────────────────────────────────────────── */
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(1.25rem, 3vw, 1.55rem);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   text-decoration: none;
   letter-spacing: -0.02em;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.logoStar {
+  color: var(--mustard);
+  flex-shrink: 0;
 }
 
 .logoAccent {
   color: var(--rust);
 }
 
+/* ── Desktop nav ──────────────────────────────────────────────────────────── */
 .nav {
-  display: flex;
-  gap: 0.35rem;
-  flex-wrap: wrap;
+  display: none;
+  gap: 0.2rem;
+  align-items: center;
 }
 
-.nav a {
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+  }
+}
+
+.navLink {
+  position: relative;
   font-weight: 500;
+  font-size: 0.92rem;
   text-decoration: none;
-  padding: 0.45rem 0.85rem;
-  border: 1.5px solid transparent;
-  border-radius: var(--radius-md);
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  transition: color 0.15s ease;
 }
 
-.nav a:hover {
-  border-color: var(--ink);
-  background: var(--peach);
+/* Mustard underline on hover */
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.25rem;
+  height: 2px;
+  background: var(--mustard);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 0.18s ease;
+  transform-origin: left;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .navLink:not(.navActive):hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navLink::after {
+    transition: none;
+  }
+}
+
+/* Teal active pill */
 .navActive {
-  border: var(--border) !important;
   background: var(--teal);
   color: var(--cream);
 }
 
+.navActive::after {
+  display: none;
+}
+
+/* ── Right-side actions ───────────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Icon search button */
+.searchBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .searchBtn:hover {
+    background: var(--peach);
+  }
+}
+
+/* "Browse events" CTA */
+.browseBtn {
+  display: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
+  padding: 0.48rem 1rem;
+  background: var(--rust);
+  color: var(--cream);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .browseBtn {
+    display: inline-block;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  @media (prefers-reduced-motion: no-preference) {
+    .browseBtn {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .browseBtn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(184, 70, 46, 0.3);
+    }
+
+    .browseBtn:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ── Hamburger ────────────────────────────────────────────────────────────── */
+.hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hamburger:hover {
+    background: var(--peach);
+  }
+}
+
+/* ── Mobile dropdown panel ────────────────────────────────────────────────── */
+.mobilePanel {
+  position: sticky;
+  top: 0; /* stack below header */
+  z-index: 99;
+  background: var(--cream);
+  border-bottom: var(--border);
+  padding: 0.5rem clamp(1rem, 4vw, 2rem) 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow:
+    0 4px 16px rgba(43, 33, 24, 0.1),
+    0 10px 32px rgba(43, 33, 24, 0.07);
+}
+
+@media (min-width: 768px) {
+  .mobilePanel {
+    display: none;
+  }
+}
+
+.mobilePanelLink {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: 44px;
+  padding: 0 0.25rem;
+  border-bottom: 1px solid rgba(43, 33, 24, 0.1);
+}
+
+.mobilePanelLink:last-of-type {
+  border-bottom: none;
+}
+
+.mobilePanelActive {
+  color: var(--teal);
+  font-weight: 600;
+}
+
+.mobilePanelBrowse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 0.65rem 1.25rem;
+  background: var(--rust);
+  color: var(--cream);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  min-height: 44px;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
 .footer {
   margin-top: 0;
   padding: 2.25rem clamp(1rem, 4vw, 2rem);
@@ -58,11 +302,5 @@
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1.05rem;
-  margin: 0 0 0.35rem;
-}
-
-.footerSmall {
   margin: 0;
-  font-size: 0.9rem;
-  opacity: 0.88;
 }

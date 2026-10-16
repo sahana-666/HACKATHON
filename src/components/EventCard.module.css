@@ -1,28 +1,66 @@
+/* ── Base card ──────────────────────────────────────────────────────────── */
 .card {
   --tilt-x: 0deg;
   --tilt-y: 0deg;
+  position: relative; /* needed for ::after */
   display: flex;
   flex-direction: column;
-  border: var(--border);
-  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--ink);
+  border-radius: 18px;
   background: var(--cream);
-  box-shadow: var(--shadow-soft);
+  /* Layered 3-level warm shadow */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 1px 2px rgba(43, 33, 24, 0.10),
+    0 6px 14px rgba(43, 33, 24, 0.10),
+    0 18px 36px rgba(43, 33, 24, 0.12);
   overflow: hidden;
   min-width: 0;
   transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
   will-change: transform;
 }
 
+/* Deep shadow on a pseudo — we animate opacity, not box-shadow */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    0 2px 4px rgba(43, 33, 24, 0.14),
+    0 12px 28px rgba(43, 33, 24, 0.18),
+    0 32px 64px rgba(43, 33, 24, 0.16);
+  opacity: 0;
+  /* Only this opacity animates — far cheaper than animating box-shadow */
+}
+
 @media (hover: hover) and (pointer: fine) {
   @media (prefers-reduced-motion: no-preference) {
     .card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.22s ease;
+    }
+
+    .card::after {
+      transition: opacity 0.22s ease;
     }
 
     .card:hover {
       transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y))
-        translateY(-4px);
-      box-shadow: var(--shadow-lift);
+        translateY(-6px);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card:focus-visible {
+      transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y))
+        translateY(-6px);
+    }
+
+    .card:focus-visible::after {
+      opacity: 1;
     }
   }
 }
@@ -67,6 +105,23 @@
   aspect-ratio: 3 / 2;
   background: var(--peach);
   border-bottom: var(--border);
+}
+
+/* Gradient overlay: keeps bottom badges readable against any image */
+.imageWrap::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55%;
+  background: linear-gradient(
+    to top,
+    rgba(43, 33, 24, 0.38) 0%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
 }
 
 .image {

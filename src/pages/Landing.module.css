@@ -195,6 +195,7 @@
 }
 
 .highlightCard {
+  position: relative;
   border: var(--border);
   border-radius: var(--radius-lg);
   padding: 1.4rem 1.35rem;

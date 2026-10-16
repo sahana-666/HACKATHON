@@ -37,7 +37,11 @@
   /* never wider than a typical mobile sheet */
   max-width: 600px;
   margin: 0 auto;
+  box-shadow:
+    0 -4px 16px rgba(43, 33, 24, 0.10),
+    0 -18px 40px rgba(43, 33, 24, 0.12);
 }
+
 
 .sheetOpen {
   transform: translateY(0);
