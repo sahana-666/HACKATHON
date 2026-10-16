@@ -4,29 +4,138 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F6EFE0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Critical above-the-fold CSS: tokens + body + header skeleton.
+         Keeps colours and font-stack correct before any JS/CSS chunk loads. -->
+    <style>
+      :root {
+        --cream: #f6efe0;
+        --ink: #2b2118;
+        --rust: #b8462e;
+        --teal: #2f6f73;
+        --mustard: #e2a93b;
+        --peach: #ebc4a8;
+        --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+        --font-body: "DM Sans", system-ui, sans-serif;
+        --border: 1.5px solid var(--ink);
+        --radius-lg: 20px;
+        --radius-md: 16px;
+        --shadow-soft: 0 2px 0 rgba(43,33,24,.06), 0 12px 32px rgba(43,33,24,.08);
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      h1, h2, h3 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        line-height: 1.15;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+      h1 { font-weight: 800; }
+      a { color: inherit; }
+      /* Header shell */
+      ._hdr {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem clamp(1rem,4vw,2rem);
+        border-bottom: var(--border);
+        background: var(--cream);
+      }
+      ._logo {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(1.25rem,3vw,1.55rem);
+        text-decoration: none;
+        letter-spacing: -0.02em;
+      }
+      ._logo-accent { color: var(--rust); }
+      ._nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+      ._nav a {
+        font-weight: 500;
+        text-decoration: none;
+        padding: .45rem .85rem;
+        border: 1.5px solid transparent;
+        border-radius: var(--radius-md);
+      }
+      /* Hero shell */
+      ._hero {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: clamp(2.5rem,7vw,4rem) clamp(1rem,4vw,2rem) 2rem;
+      }
+      @media (min-width: 768px) {
+        ._hero { grid-template-columns: 1fr 1fr; align-items: center; }
+      }
+      ._headline {
+        font-weight: 800;
+        font-size: clamp(2.35rem,7vw,4.25rem);
+        max-width: 14ch;
+        margin-bottom: 1.15rem;
+      }
+      ._highlight {
+        color: var(--rust);
+        text-decoration: underline;
+        text-decoration-color: var(--mustard);
+        text-decoration-thickness: .12em;
+        text-underline-offset: .12em;
+      }
+      ._sub {
+        margin: 0 0 1.85rem;
+        max-width: 34rem;
+        font-size: clamp(1rem,2.2vw,1.12rem);
+      }
+      ._cta {
+        display: inline-block;
+        font-weight: 500;
+        font-size: 1.05rem;
+        text-decoration: none;
+        padding: .8rem 1.65rem;
+        background: var(--rust);
+        color: var(--cream);
+        border: var(--border);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-soft);
+      }
+      /* Hide the static shell once React mounts (React removes these nodes) */
+    </style>
+
+    <!-- Self-hosted font preloads: only the LCP-critical weights (body 400 + display 800) -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/dm-sans-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/fraunces-latin.woff2" />
+
+    <!-- API preconnect (keeps warm for the first data fetch) -->
     <link rel="preconnect" href="https://render72.pages.dev" />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap"
-      />
-    </noscript>
+
     <title>Marquee | Campus events, curated</title>
     <meta name="description" content="Marquee rounds up every event on campus. Browse the full lineup, filter by category, and register before seats run out." />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://marquee.vercel.app/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Marquee | Campus events, curated" />
     <meta property="og:description" content="Marquee rounds up every event on campus. Browse the full lineup, filter by category, and register before seats run out." />
     <meta property="og:site_name" content="Marquee" />
+    <meta property="og:url" content="https://marquee.vercel.app/" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
@@ -34,7 +143,39 @@
     <meta name="twitter:description" content="Marquee rounds up every event on campus. Browse the full lineup, filter by category, and register before seats run out." />
   </head>
   <body>
-    <div id="root"></div>
+    <!--
+      Static hero shell — React replaces this on first render.
+      Gives FCP/LCP a head start: the h1 is painted before any JS executes.
+      Class names are prefixed with _ to avoid any collision with Vite CSS modules.
+    -->
+    <div id="root">
+      <a href="#main" class="skip-link">Skip to main content</a>
+      <header class="_hdr" aria-label="Site header">
+        <a href="/" class="_logo" aria-label="Marquee home">
+          Marque<span class="_logo-accent">e</span>
+        </a>
+        <nav class="_nav" aria-label="Main">
+          <a href="/">Home</a>
+          <a href="/events">All events</a>
+        </nav>
+      </header>
+      <main id="main">
+        <div style="background:var(--cream)">
+          <section class="_hero" aria-labelledby="hero-heading">
+            <div>
+              <h1 id="hero-heading" class="_headline">
+                Campus life, <span class="_highlight">curated</span>
+              </h1>
+              <p class="_sub">
+                Marquee rounds up every event on campus. Browse the lineup and
+                jump straight to what matters.
+              </p>
+              <a href="/events" class="_cta">See all events</a>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
